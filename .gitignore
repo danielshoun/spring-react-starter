@@ -1,4 +1,4 @@
-!**/src/main/resources/static/
+src/main/resources/static
 HELP.md
 .gradle
 build/
@@ -17,7 +17,6 @@ build/
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
-!**/src/main/resources/application.properties
 
 ### IntelliJ IDEA ###
 .idea
