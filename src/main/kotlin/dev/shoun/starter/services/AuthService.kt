@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.validation.BindingResult
+import javax.servlet.http.Cookie
+import javax.servlet.http.HttpServletResponse
 
 @Service
 class AuthService {
@@ -27,5 +29,13 @@ class AuthService {
         user.enabled = true
         userRepository.save(user)
         return SelfUserDto(user)
+    }
+
+    fun logout(response: HttpServletResponse): String {
+        val cookie = Cookie("TOKEN", null)
+        cookie.isHttpOnly = true
+        cookie.maxAge = 0
+        response.addCookie(cookie)
+        return "Log out successful."
     }
 }

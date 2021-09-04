@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication
 import org.springframework.validation.BindingResult
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
+import javax.servlet.http.HttpServletResponse
 import javax.validation.Valid
 
 @RestController
@@ -30,5 +31,11 @@ class AuthController {
     @ResponseBody
     fun registerNewUser(@Valid @RequestBody registerNewUserForm: RegisterNewUserForm, bindingResult: BindingResult): SelfUserDto {
         return authService.registerNewUser(registerNewUserForm, bindingResult)
+    }
+
+    @DeleteMapping("/logout")
+    @ResponseBody
+    fun logout(response: HttpServletResponse): String {
+        return authService.logout(response)
     }
 }

@@ -1,14 +1,19 @@
 import {Link, useHistory} from "react-router-dom";
 import {useSession} from "../context";
-import Cookies from "js-cookie";
+import csrfFetch from "../utils/csrfFetch";
 
 export default function Nav() {
     const history = useHistory();
     const {session, setSession} = useSession();
 
-    function handleLogout() {
-        Cookies.remove("TOKEN");
-        setSession && setSession(null);
+    async function handleLogout() {
+        const res = await csrfFetch("/api/v1/auth/logout", {
+            method: "DELETE"
+        })
+        if (res.ok) {
+            setSession && setSession(null);
+            history.push("/")
+        }
     }
 
     return (
